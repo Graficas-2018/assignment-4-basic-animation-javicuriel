@@ -30,22 +30,23 @@ function sin(angle){
 }
 
 function genericShape(start_angle, finish_angle, nTrian, radius){
-  console.log("HOLAA");
-  if(nTrian == 1) verts[1] = radius/2;
-
   step = (finish_angle - start_angle)/nTrian
 
   points = []
   angles = [];
   values = [];
 
+  var j = 0;
+  var div = 1/nTrian
   for (var i = start_angle; i <= finish_angle; i+= step) {
-      console.log(toRadians(i));
+      points.push(j);
+      j+=div;
       angles.push({y:-(toRadians(i)+Math.PI / 2 )})
       values.push({x: cos(i)*radius, z: sin(i)*radius})
   }
 
-  return {values,angles};
+
+  return {values,angles,points};
 
 
 }
@@ -53,21 +54,18 @@ function genericShape(start_angle, finish_angle, nTrian, radius){
 function setAnimation(object){
   crateAnimator = new KF.KeyFrameAnimator;
 
-  var generic = genericShape(0, 360, 8, 10);
-  values = generic.values;
-  angles = generic.angles
-
+  var generic = genericShape(0, 360, 360, 10);
   crateAnimator.init({
       interps:
           [
               {
-                  keys: [0, .125, .250, .375, .500 ,.625, .750, .875, 1],
-                  values: values,
+                  keys: generic.points,
+                  values: generic.values,
                   target: object.position
               },
               {
-                  keys: [0, .125, .250, .375, .500 ,.625, .750, .875, 1],
-                  values: angles,
+                  keys: generic.points,
+                  values: generic.angles,
                   target: object.rotation
               }
           ],
