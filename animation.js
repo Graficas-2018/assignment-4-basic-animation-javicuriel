@@ -84,7 +84,7 @@ function loadJson()
     jsonLoader = new THREE.JSONLoader();
 
     jsonLoader.load(
-        '../Class_demos/models/monster/monster.js',
+        '../models/monster/monster.js',
 
         function(geometry, materials)
         {
@@ -152,7 +152,7 @@ function setLightColor(light, r, g, b)
 var directionalLight = null;
 var spotLight = null;
 var ambientLight = null;
-var mapUrl = "../Class_demos/images/checker_large.gif";
+var mapUrl = "../images/checker_large.gif";
 
 var SHADOW_MAP_WIDTH = 2048, SHADOW_MAP_HEIGHT = 2048;
 
